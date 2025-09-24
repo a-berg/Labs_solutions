@@ -33,7 +33,7 @@ mkdir src && touch src/index.ts
 cat > src/index.ts <<EOF_END
 import { z, genkit } from 'genkit';
 import { vertexAI } from '@genkit-ai/vertexai';
-import { gemini15Flash } from '@genkit-ai/vertexai';
+import { gemini20Flash001 } from '@genkit-ai/vertexai';
 import { logger } from 'genkit/logging';
 import { enableGoogleCloudTelemetry } from '@genkit-ai/google-cloud';
 import { startFlowServer } from '@genkit-ai/express';
@@ -162,7 +162,7 @@ EOF
 cat > src/index.ts <<'EOF_END'
 import { z, genkit } from 'genkit';
 import { vertexAI } from '@genkit-ai/vertexai';
-import { gemini15Flash } from '@genkit-ai/vertexai';
+import { gemini20Flash001 } from '@genkit-ai/vertexai';
 import { logger } from 'genkit/logging';
 import { enableGoogleCloudTelemetry } from '@genkit-ai/google-cloud';
 import { startFlowServer } from '@genkit-ai/express';
@@ -219,7 +219,7 @@ async () => Promise.resolve({ menuData: menuData })
 export const dataMenuPrompt = ai.definePrompt(
 {
     name: 'dataMenu',
-    model: gemini15Flash,
+    model: gemini20Flash001,
     input: { schema: MenuQuestionInputSchema },
     output: { format: 'text' },
     tools: [menuTool],
