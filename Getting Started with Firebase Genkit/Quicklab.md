@@ -17,7 +17,7 @@ Start your Google CloudShell session by [clicking here](https://console.cloud.go
 
 
 ```bash
-curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Getting%20Started%20with%20Firebase%20Genkit/task1.sh
+curl -LO raw.githubusercontent.com/a-berg/Labs_solutions/refs/heads/master/Getting%20Started%20with%20Firebase%20Genkit/task1.sh
 sudo chmod +x task1.sh
 ./task1.sh
 ```
@@ -27,7 +27,7 @@ sudo chmod +x task1.sh
 `Make sure your're running below command on new terminal.`
 
 ```bash
-curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Getting%20Started%20with%20Firebase%20Genkit/task2.sh
+curl -LO raw.githubusercontent.com/a-berg/Labs_solutions/refs/heads/master/Getting%20Started%20with%20Firebase%20Genkit/task2.sh
 sudo chmod +x task2.sh
 ./task2.sh
 ```
