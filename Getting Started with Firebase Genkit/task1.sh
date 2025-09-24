@@ -21,7 +21,7 @@ mkdir src && cd src
 
 ## Add file
 
-wget https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Getting%20Started%20with%20Firebase%20Genkit/index.ts
+wget https://raw.githubusercontent.com/a-berg/Labs_solutions/refs/heads/master/Getting%20Started%20with%20Firebase%20Genkit/index.ts
 
 sed -i "s/us-west1/$REGION/g" index.ts
 
