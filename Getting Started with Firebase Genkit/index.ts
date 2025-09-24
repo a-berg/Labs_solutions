@@ -1,8 +1,9 @@
 import { z, genkit } from 'genkit';
 import { vertexAI } from '@genkit-ai/vertexai';
-import { gemini15Flash } from '@genkit-ai/vertexai';
+import { gemini20Flash001 } from '@genkit-ai/vertexai';
 import { logger } from 'genkit/logging';
 import { enableGoogleCloudTelemetry } from '@genkit-ai/google-cloud';
+import { startFlowServer } from '@genkit-ai/express';
 
 
 const ai = genkit({
@@ -16,27 +17,27 @@ enableGoogleCloudTelemetry();
 
 
 export const menuSuggestionFlow = ai.defineFlow(
-    {
-        name: 'menuSuggestionFlow',
-        inputSchema: z.string(),
-        outputSchema: z.string(),
-    },
-    async (subject) => {
-        // Construct a request and send it to the model API.
-        const llmResponse = await ai.generate({
-            prompt: `Suggest an item for the menu of a ${subject} themed restaurant`,
-            model: gemini15Flash,
-            config: {
-                temperature: 1,
-            },
-        });
-    
-        // Handle the response from the model API. In this sample, we just convert
-        // it to a string, but more complicated flows might coerce the response into
-        // structured output or chain the response into another LLM call, etc.
-        return llmResponse.text;
-    }
-    );
+{
+    name: 'menuSuggestionFlow',
+    inputSchema: z.string(),
+    outputSchema: z.string(),
+},
+async (subject) => {
+    // Construct a request and send it to the model API.
+    const llmResponse = await ai.generate({
+        prompt: `Suggest an item for the menu of a ${subject} themed restaurant`,
+        model: gemini20Flash001,
+        config: {
+            temperature: 1,
+        },
+    });
+
+    // Handle the response from the model API. In this sample, we just convert
+    // it to a string, but more complicated flows might coerce the response into
+    // structured output or chain the response into another LLM call, etc.
+    return llmResponse.text;
+}
+);
 
 export const jokeFlow = ai.defineFlow(
 {
@@ -47,7 +48,7 @@ export const jokeFlow = ai.defineFlow(
 async (subject) => {
     const llmResponse = await ai.generate({
         prompt: `Tell me a joke about ${subject}`,
-        model: gemini15Flash,
+        model: gemini20Flash001,
         config: {
             temperature: 1,
         },
@@ -68,7 +69,7 @@ const CustomerTimeAndHistorySchema = z.object({
 const greetingWithHistoryPrompt = ai.definePrompt(
 {
     name: 'greetingWithHistory',
-    model: gemini15Flash,
+    model: gemini20Flash001,
     input: { schema: CustomerTimeAndHistorySchema },
     output: {
         format: 'text',
