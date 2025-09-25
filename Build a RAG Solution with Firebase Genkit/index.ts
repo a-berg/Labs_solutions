@@ -1,3 +1,4 @@
+import { GenkitMetric, genkitEval } from '@genkit-ai/evaluator';
 import { z, genkit } from 'genkit';
 import { vertexAI } from '@genkit-ai/vertexai';
 import { gemini20Flash001 } from '@genkit-ai/vertexai';
