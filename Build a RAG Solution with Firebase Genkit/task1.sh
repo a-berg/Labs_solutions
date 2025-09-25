@@ -13,17 +13,17 @@ gcloud auth list
 mkdir genkit-intro && cd genkit-intro
 npm init -y
 
-npm install -D genkit-cli@1.0.0-rc.2
+npm install -D genkit-cli@1.0.4
 
-npm install genkit@1.0.0-rc.2 --save
-npm install @genkit-ai/vertexai@1.0.0-rc.2 @genkit-ai/google-cloud@1.0.0-rc.2 express --save
-npm install @genkit-ai/dev-local-vectorstore@1.0.0-rc.2 @genkit-ai/evaluator@1.0.0-rc.2 --save
+npm install genkit@1.0.4 --save
+npm install @genkit-ai/vertexai@1.0.4 @genkit-ai/google-cloud@1.0.4 @genkit-ai/express@1.0.4 --save
+npm install @genkit-ai/dev-local-vectorstore@1.0.4 @genkit-ai/evaluator@1.0.4 --save
 
 mkdir src && cd src
 
 ## add file 
 
-wget https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Build%20a%20RAG%20Solution%20with%20Firebase%20Genkit/index.ts
+wget https://raw.githubusercontent.com/a-berg/Labs_solutions/refs/heads/master/Build%20a%20RAG%20Solution%20with%20Firebase%20Genkit/index.ts
 
 sed -i "s/us-west1/$REGION/g" index.ts
 
