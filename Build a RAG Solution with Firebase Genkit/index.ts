@@ -161,7 +161,7 @@ export const indexMenuItemsFlow = ai.defineFlow(
 );
 
 
-ai.startFlowServer({
+startFlowServer({
     flows: [menuSuggestionFlow, ragMenuQuestionFlow, indexMenuItemsFlow],
     port: 8080,
     cors: {
