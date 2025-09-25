@@ -1,54 +1,33 @@
 import { z, genkit } from 'genkit';
 import { vertexAI } from '@genkit-ai/vertexai';
-import { gemini15Flash } from '@genkit-ai/vertexai';
+import { gemini20Flash001 } from '@genkit-ai/vertexai';
 import { textEmbedding004 } from '@genkit-ai/vertexai';
 import { Document, index, retrieve } from '@genkit-ai/ai/retriever';
 import { devLocalIndexerRef, devLocalRetrieverRef, devLocalVectorstore } from '@genkit-ai/dev-local-vectorstore';
 import { logger } from 'genkit/logging';
 import { enableGoogleCloudTelemetry } from '@genkit-ai/google-cloud';
-import { GenkitMetric, genkitEval } from '@genkit-ai/evaluator';
+import { startFlowServer } from '@genkit-ai/express';
 
-// const ai = genkit({
-//     plugins: [
-//         vertexAI({ location: 'us-west1' }),
-//         devLocalVectorstore([
-//         {
-//             indexName: 'menu-items',
-//             embedder: textEmbedding004,
-//             embedderOptions: { taskType: 'RETRIEVAL_DOCUMENT' },
-//         }
-//         ]),
-//     ]
-//   });
+const ai = genkit({
+  plugins: [
+      vertexAI({ location: 'us-west1' }),
+      devLocalVectorstore([
+      {
+          indexName: 'menu-items',
+          embedder: textEmbedding004,
+          embedderOptions: { taskType: 'RETRIEVAL_DOCUMENT' },
+      }
+      ]),
+      genkitEval({
+          judge: gemini20Flash001,
+          metrics: [GenkitMetric.FAITHFULNESS, GenkitMetric.ANSWER_RELEVANCY],
+          embedder: textEmbedding004, // GenkitMetric.ANSWER_RELEVANCY requires an embedder
+        }),
+  ]
+});
 
-//   logger.setLogLevel('debug');
-//   enableGoogleCloudTelemetry();
-
-
-
-  const ai = genkit({
-    plugins: [
-        vertexAI({ location: 'us-west1' }),
-        devLocalVectorstore([
-        {
-            indexName: 'menu-items',
-            embedder: textEmbedding004,
-            embedderOptions: { taskType: 'RETRIEVAL_DOCUMENT' },
-        }
-        ]),
-        genkitEval({
-            judge: gemini15Flash,
-            metrics: [GenkitMetric.FAITHFULNESS, GenkitMetric.ANSWER_RELEVANCY],
-            embedder: textEmbedding004, // GenkitMetric.ANSWER_RELEVANCY requires an embedder
-          }),
-    ]
-  });
-
-  logger.setLogLevel('debug');
-  enableGoogleCloudTelemetry();
-
-
-
+logger.setLogLevel('debug');
+enableGoogleCloudTelemetry();
 
 export const menuSuggestionFlow = ai.defineFlow(
 {
@@ -59,7 +38,7 @@ export const menuSuggestionFlow = ai.defineFlow(
 async (subject) => {
   const llmResponse = await ai.generate({
     prompt: `Suggest an item for the menu of a ${subject} themed restaurant`,
-    model: gemini15Flash,
+    model: gemini20Flash001,
     config: {
       temperature: 1,
     },
@@ -108,7 +87,7 @@ export const TextMenuQuestionInputSchema = z.object({
 export const ragDataMenuPrompt = ai.definePrompt(
 {
     name: 'ragDataMenu',
-    model: gemini15Flash,
+    model: gemini20Flash001,
     input: { schema: DataMenuQuestionInputSchema },
     output: { format: 'text' },
     config: { temperature: 0.3 },
